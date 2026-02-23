@@ -32,7 +32,7 @@
         </h1>
         <!-- Container to showcase last time the date was updated for JSON data -->
         <div class="lastUpdatedContainer">
-            <span class="lastUpdatedLabel" id="lastUpdatedLabel">Last updated (EST): </span>
+            <span class="lastUpdatedLabel" id="lastUpdatedLabel">Last Updated (EST): </span>
             <span id="jsonLastUpdatedValue"><?php echo htmlspecialchars($jsonLastUpdatedDate ?? ''); ?></span>
         </div>
     </div>
@@ -57,7 +57,7 @@
             <div id="chartContainer">
                 <div class="dateRangeSelector">
                     <label for="datePicker" class="date-label">Select Date Range:</label>
-                    <input type="text" id="datePicker" placeholder="Select date range" readonly>
+                    <input type="text" id="datePicker" placeholder="Select Date Range" readonly>
                     <button id="updateChart">Update Chart</button>
                     <button id="resetButton" class="reset-btn" type="button">Reset</button>
                 </div>
@@ -178,7 +178,7 @@ $lcf = $energy / ($timeSince * 90) * 100; //Life Time Capacity Factor
 // Informative boxes
 echo '<div class="container grid-auto">';
 // Output the NPS data
-echo '<div id="gridItem4" class="grid-item">Reduction in CO2: <br><span class="value">' . htmlspecialchars(round($COR, 2)) . ' lbs/Hr</span></div>';
+echo '<div id="gridItem4" class="grid-item">Reduction in CO<sub>2</sub>: <br><span class="value">' . htmlspecialchars(round($COR, 2)) . ' lbs/hr</span></div>';
 
 // Output the JSON data
 echo '<div id="gridItem1" class="grid-item">Wind Turbine Power: <br><span class="value">' . htmlspecialchars(round($windGen, 2)) . ' kW</span></div>';
@@ -189,8 +189,8 @@ echo '<div id="gridItem20" class="grid-item">Hydro Power: <br><span class="value
 echo '<div id="gridItem21" class="grid-item">Dix1 Power: <br><span class="value">' . htmlspecialchars(round($dix1, 2)) . ' MW</span></div>';
 echo '<div id="gridItem22" class="grid-item">Dix2 Power: <br><span class="value">' . htmlspecialchars(round($dix2, 2)) . ' MW</span></div>';
 echo '<div id="gridItem23" class="grid-item">Dix3 Power: <br><span class="value">' . htmlspecialchars(round($dix3, 2)) . ' MW</span></div>';
-echo '<div id="gridItem15" class="grid-item">Battery Power: <br><span class= "value">' . htmlspecialchars($batteryPow) . ' KW</span></div>';
-echo '<div id="gridItem16" class="grid-item">Battery Power Available: <br><span class= "value">' . htmlspecialchars($batteryPowAva) . ' KW</span></div>';
+echo '<div id="gridItem15" class="grid-item">Battery Power: <br><span class= "value">' . htmlspecialchars($batteryPow) . ' kW</span></div>';
+echo '<div id="gridItem16" class="grid-item">Battery Power Available: <br><span class= "value">' . htmlspecialchars($batteryPowAva) . ' kW</span></div>';
 
 // Output the NPS data
 echo '<div id="gridItem2" class="grid-item">Wind Speed: <br><span class="value">' . htmlspecialchars(round($wind, 2)) . ' m/s</span></div>';
@@ -214,7 +214,7 @@ echo '<div id="gridItem18" class="grid-item">Minimum Module Temperature: <br><sp
 // 7-Day Rolling Capacity Factors
 echo '<div id="gridItem26" class="grid-item">Total Solar 7-Day Capacity Factor: <br><span id="solartotalCF7d" class="value">--%</span></div>';
 echo '<div id="gridItem27" class="grid-item">Fixed Solar 7-Day Capacity Factor: <br><span id="solarfixedCF7d" class="value">--%</span></div>';
-echo '<div id="gridItem28" class="grid-item">Dual Solar 7-Day Capacity Factor: <br><span id="solardualCF7d" class="value">--%</span></div>';
+echo '<div id="gridItem28" class="grid-item">Dual-Axis Solar 7-Day Capacity Factor: <br><span id="solardualCF7d" class="value">--%</span></div>';
 echo '<div id="gridItem29" class="grid-item">Hydro 7-Day Capacity Factor: <br><span id="hydroCF7d" class="value">--%</span></div>';
 echo '<div id="gridItem30" class="grid-item">Wind 7-Day Capacity Factor: <br><span id="windCF7d" class="value">--%</span></div>';
 
@@ -227,7 +227,7 @@ echo '</div>';
     <div class="boxT">
         <h3>
             PPL R&D's Renewable Integration Research Facility combines actual 30 megawatts hydroelectric, 10.2 megawatts of solar
-            (fixed, multi-axis tracking, and single-axis tracking), lithium-ion batteries, and wind generation data to show how
+            (fixed, dual-axis tracking, and single-axis tracking), lithium-ion batteries, and wind generation data to show how
             the complementarity of multiple types of renewable energy, including solar, wind, and hydro, can be combined with energy
             storage to provide 100% renewable, more-reliable, and cost-effective renewable electricity to customers.
             Data are not simulated. Raw data are being collected from sensors at the site and automatically live-streamed to the
