@@ -41,7 +41,7 @@ try {
     $startDateTime = new DateTime($startDate);
     $endDateTime = new DateTime($endDate);
     $interval = $startDateTime->diff($endDateTime);
-    $groupInterval = 300;  //Data shown for all 60 sec of a minute
+    $groupInterval = 60;  //Data shown for all 60 sec of a minute
     /*// Check if the interval is exactly one day
     if ($interval->days >= 0 && $interval->days < 3) {
     // Use 1-minute intervals for a single day

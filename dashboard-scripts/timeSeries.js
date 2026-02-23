@@ -385,7 +385,7 @@ function createTimeSeriesChart() {
         color: "#ffc247",
       },
       {
-        name: "Dual Axis Solar",
+        name: "Dual-Axis Solar",
         data: [],
         color: "#d11717",
       },

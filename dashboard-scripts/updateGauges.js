@@ -76,7 +76,7 @@ function updateGauges(check) {
       document.getElementById("gridItem1").innerHTML =
         `Wind Turbine Power: <span class="value"><br>${data[0]["Wind Generation (kW)"].toFixed(2)} KW</span>`;
       document.getElementById("gridItem4").innerHTML =
-        `Reduction in CO2: <span class="value"><br>${COR.toFixed(2)} lbs/Hr</span>`;
+        `Reduction in CO<sub>2</sub>: <span class="value"><br>${COR.toFixed(2)} lbs/Hr</span>`;
       document.getElementById("gridItem6").innerHTML =
         `Battery Container 1 Temp: <span class="value"><br>${data[0]["Battery Container 1 Temp (C)"]}°C</span>`;
       document.getElementById("gridItem7").innerHTML =
