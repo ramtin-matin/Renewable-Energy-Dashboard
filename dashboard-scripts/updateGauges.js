@@ -93,33 +93,34 @@ function updateGauges(check) {
       document.getElementById("gridItem12").innerHTML =
         `Battery Average Cell Voltage: <span class="value"><br>${data[0]["Battery Average Cell Voltage"]} V</span>`;
       document.getElementById("gridItem13").innerHTML =
-        `Battery Max, Min Cell Voltage: <span class="value"><br>Max: ${data[0]["Battery Maximum Cell Voltage"]} V&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                                                                                                                              Min: ${data[0]["Battery Minimum Cell Voltage"]} V</span>`;
+        `Battery Max Cell Voltage: <span class="value"><br>${data[0]["Battery Maximum Cell Voltage"]} V</span>`;
       document.getElementById("gridItem14").innerHTML =
-        `Exterior Temperature: <span class="value"><br>${data[0]["Exterior Temperature (C)"]}°C</span>`;
+        `Battery Min Cell Voltage: <span class="value"><br>${data[0]["Battery Minimum Cell Voltage"]} V</span>`;
       document.getElementById("gridItem15").innerHTML =
-        `Battery Power: <span class="value"><br>${data[0]["Battery Power (kW)"]} kW</span>`;
+        `Exterior Temperature: <span class="value"><br>${data[0]["Exterior Temperature (C)"]}°C</span>`;
       document.getElementById("gridItem16").innerHTML =
-        `Battery Power Available: <span class="value"><br>${data[0]["Battery Power Available (kW)"]} kW</span>`;
+        `Battery Power: <span class="value"><br>${data[0]["Battery Power (kW)"]} kW</span>`;
       document.getElementById("gridItem17").innerHTML =
-        `Maximum Module Temperature: <span class="value"><br>${data[0]["Battery Maximum Module Temp (C)"]}°C</span>`;
+        `Battery Power Available: <span class="value"><br>${data[0]["Battery Power Available (kW)"]} kW</span>`;
       document.getElementById("gridItem18").innerHTML =
+        `Maximum Module Temperature: <span class="value"><br>${data[0]["Battery Maximum Module Temp (C)"]}°C</span>`;
+      document.getElementById("gridItem19").innerHTML =
         `Minimum Module Temperature: <span class="value"><br>${data[0]["Battery Minimum Module Temp (C)"]}°C</span>`;
 
-      document.getElementById("gridItem19").innerHTML =
-        `Solar Power: <span class="value"><br>${data[0]["Solar Generation (kW)"].toFixed(2)} KW</span>`;
       document.getElementById("gridItem20").innerHTML =
-        `Hydro Power: <span class="value"><br>${data[0]["Hydro Generation (kW)"].toFixed(2)} KW</span>`;
+        `All Solar Power: <span class="value"><br>${data[0]["Solar Generation (kW)"].toFixed(2)} KW</span>`;
       document.getElementById("gridItem21").innerHTML =
-        `Dix1 Power: <span class="value"><br>${data[0]["Dix 1 Hydro Generation (MW)"].toFixed(2)} MW</span>`;
+        `Hydro Power: <span class="value"><br>${data[0]["Hydro Generation (kW)"].toFixed(2)} KW</span>`;
       document.getElementById("gridItem22").innerHTML =
-        `Dix2 Power: <span class="value"><br>${data[0]["Dix 2 Hydro Generation (MW)"].toFixed(2)} MW</span>`;
+        `Dix1 Power: <span class="value"><br>${data[0]["Dix 1 Hydro Generation (MW)"].toFixed(2)} MW</span>`;
       document.getElementById("gridItem23").innerHTML =
-        `Dix3 Power: <span class="value"><br>${data[0]["Dix 3 Hydro Generation (MW)"].toFixed(2)} MW</span>`;
+        `Dix2 Power: <span class="value"><br>${data[0]["Dix 2 Hydro Generation (MW)"].toFixed(2)} MW</span>`;
       document.getElementById("gridItem24").innerHTML =
-        `Fixed Solar Power: <span class="value"><br>${data[0]["Solar Fixed (kW)"].toFixed(2)} kW</span>`;
+        `Dix3 Power: <span class="value"><br>${data[0]["Dix 3 Hydro Generation (MW)"].toFixed(2)} MW</span>`;
       document.getElementById("gridItem25").innerHTML =
-        `360&deg; Tracking Solar Power: <span class="value"><br>${data[0]["Solar 360 Trackers (kW)"].toFixed(2)} kW</span>`;
+        `Fixed Solar Power: <span class="value"><br>${data[0]["Solar Fixed (kW)"].toFixed(2)} kW</span>`;
+      document.getElementById("gridItem26").innerHTML =
+        `Dual-Axis Tracking Solar Power: <span class="value"><br>${data[0]["Solar 360 Trackers (kW)"].toFixed(2)} kW</span>`;
 
       // Store the real-time data with the current timestamp
       latestRealTimeData = {

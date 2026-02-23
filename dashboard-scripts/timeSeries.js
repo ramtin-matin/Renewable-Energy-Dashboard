@@ -193,33 +193,46 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Reset Zoom button
+  const resetZoomBtn = document.getElementById("resetZoomButton");
+  if (resetZoomBtn) {
+    resetZoomBtn.addEventListener("click", () => {
+      const chart = Highcharts.charts.find(
+        (c) => c && c.renderTo.id === "timeSeriesContainer",
+      );
+
+      if (chart) {
+        chart.zoomOut(); // resets zoom
+      }
+    });
+  }
+
   // Reset button
-const resetBtn = document.getElementById("resetButton");
-if (resetBtn) {
-  resetBtn.addEventListener("click", async () => {
+  const resetBtn = document.getElementById("resetButton");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", async () => {
+      if (datePicker) datePicker.clear();
 
-    if (datePicker) datePicker.clear();
+      const today = new Date();
+      const todayFormatted = today.toISOString().split("T")[0];
 
-    const today = new Date();
-    const todayFormatted = today.toISOString().split("T")[0];
+      const oneDayNH = new Date();
+      oneDayNH.setHours(oneDayNH.getHours() - 36);
 
-    const oneDayNH = new Date();
-    oneDayNH.setHours(oneDayNH.getHours() - 36);
+      startDate = oneDayNH.toISOString().split("T")[0];
+      startTime = oneDayNH.toISOString().split("T")[1];
+      endDate = todayFormatted;
 
-    startDate = oneDayNH.toISOString().split("T")[0];
-    startTime = oneDayNH.toISOString().split("T")[1];
-    endDate = todayFormatted;
+      await fetchData(startDate, endDate, startTime);
+      updateGauges(checkIfTodaySelected(endDate));
 
-    await fetchData(startDate, endDate, startTime);
-    updateGauges(checkIfTodaySelected(endDate));
+      if (typeof fetchRollingCapacityFactors === "function") {
+        fetchRollingCapacityFactors();
+      }
 
-    if (typeof fetchRollingCapacityFactors === "function") {
-      fetchRollingCapacityFactors();
-    }
-
-    console.log("Dashboard reset.");
-  });
-}
+      console.log("Dashboard reset.");
+    });
+  }
 
   // Get today's date
   const today = new Date();
@@ -240,16 +253,22 @@ if (resetBtn) {
   // Auto-refresh chart aligned to 5-minute clock intervals (e.g. 11:20, 11:25, 11:30)
   function msUntilNextFiveMinutes() {
     const now = new Date();
-    const ms = now.getMinutes() * 60 * 1000 + now.getSeconds() * 1000 + now.getMilliseconds();
+    const ms =
+      now.getMinutes() * 60 * 1000 +
+      now.getSeconds() * 1000 +
+      now.getMilliseconds();
     const interval = 5 * 60 * 1000;
     return interval - (ms % interval);
   }
 
   setTimeout(() => {
     fetchData(startDate, endDate, startTime);
-    setInterval(() => {
-      fetchData(startDate, endDate, startTime);
-    }, 5 * 60 * 1000);
+    setInterval(
+      () => {
+        fetchData(startDate, endDate, startTime);
+      },
+      5 * 60 * 1000,
+    );
   }, msUntilNextFiveMinutes());
 });
 
@@ -263,13 +282,9 @@ function createTimeSeriesChart() {
       marginLeft: 60,
 
       resetZoomButton: {
-        position: {
-          align: "left",
-          verticalAlign: "top",
-          x: 20,
-          y: 10,
+        theme: {
+          display: "none",
         },
-        relativeTo: "chart",
       },
       zooming: {
         mouseWheel: false,
@@ -330,7 +345,12 @@ function createTimeSeriesChart() {
     },
     tooltip: {
       shared: true,
+      outside: true, // render tooltip outside the chart SVG
+      useHTML: true, // makes z-index/CSS layering easier
       xDateFormat: "%Y-%m-%d %H:%M:%S",
+      style: {
+        zIndex: 99999, // overlay other page elements
+      },
     },
     plotOptions: {
       series: {
@@ -360,7 +380,7 @@ function createTimeSeriesChart() {
     },
     series: [
       {
-        name: "Solar",
+        name: "All Solar",
         data: [],
         color: "#fe6a35",
       },
