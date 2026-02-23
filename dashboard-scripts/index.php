@@ -40,7 +40,7 @@
     <div class="container">
             <div class="box">
                 <svg id="solarGauge" width="200" height="200"></svg>
-                <h2 >Solar</h2>
+                <h2 >All Solar</h2>
             </div>
             <div class="box">
                 <svg id="windGauge" width="200" height="200"></svg>
@@ -57,9 +57,10 @@
             <div id="chartContainer">
                 <div class="dateRangeSelector">
                     <label for="datePicker" class="date-label">Select Date Range:</label>
-                    <input type="text" id="datePicker" placeholder="Select Date Range" readonly>
+                    <input type="text" id="datePicker" class="date-picker" placeholder="Select Date Range" readonly>
                     <button id="updateChart">Update Chart</button>
-                    <button id="resetButton" class="reset-btn" type="button">Reset</button>
+                    <button id="resetZoomButton" class="reset-zoom">Reset Zoom</button>
+                    <button id="resetButton" class="reset-date">Reset Date</button>
                 </div>
             </div>
         <div id="timeSeriesContainer"> </div>
@@ -182,15 +183,15 @@ echo '<div id="gridItem4" class="grid-item">Reduction in CO<sub>2</sub>: <br><sp
 
 // Output the JSON data
 echo '<div id="gridItem1" class="grid-item">Wind Turbine Power: <br><span class="value">' . htmlspecialchars(round($windGen, 2)) . ' kW</span></div>';
-echo '<div id="gridItem19" class="grid-item">Total Solar Power: <br><span class="value">' . htmlspecialchars(round($solarGen, 2)) . ' kW</span></div>';
-echo '<div id="gridItem24" class="grid-item">Fixed Solar Power: <br><span class="value">' . htmlspecialchars(round($fixedSolarGen, 2)) . ' kW</span></div>';
-echo '<div id="gridItem25" class="grid-item">360&deg; Tracking Solar Power: <br><span class="value">' . htmlspecialchars(round($multiAxisSolarGen, 2)) . ' kW</span></div>';
-echo '<div id="gridItem20" class="grid-item">Hydro Power: <br><span class="value">' . htmlspecialchars(round($hydroGen, 2)) . ' kW</span></div>';
-echo '<div id="gridItem21" class="grid-item">Dix1 Power: <br><span class="value">' . htmlspecialchars(round($dix1, 2)) . ' MW</span></div>';
-echo '<div id="gridItem22" class="grid-item">Dix2 Power: <br><span class="value">' . htmlspecialchars(round($dix2, 2)) . ' MW</span></div>';
-echo '<div id="gridItem23" class="grid-item">Dix3 Power: <br><span class="value">' . htmlspecialchars(round($dix3, 2)) . ' MW</span></div>';
-echo '<div id="gridItem15" class="grid-item">Battery Power: <br><span class= "value">' . htmlspecialchars($batteryPow) . ' kW</span></div>';
-echo '<div id="gridItem16" class="grid-item">Battery Power Available: <br><span class= "value">' . htmlspecialchars($batteryPowAva) . ' kW</span></div>';
+echo '<div id="gridItem20" class="grid-item">Total Solar Power: <br><span class="value">' . htmlspecialchars(round($solarGen, 2)) . ' kW</span></div>';
+echo '<div id="gridItem25" class="grid-item">Fixed Solar Power: <br><span class="value">' . htmlspecialchars(round($fixedSolarGen, 2)) . ' kW</span></div>';
+echo '<div id="gridItem26" class="grid-item">Dual-Axis Tracking Solar Power: <br><span class="value">' . htmlspecialchars(round($multiAxisSolarGen, 2)) . ' kW</span></div>';
+echo '<div id="gridItem21" class="grid-item">Hydro Power: <br><span class="value">' . htmlspecialchars(round($hydroGen, 2)) . ' kW</span></div>';
+echo '<div id="gridItem22" class="grid-item">Dix1 Power: <br><span class="value">' . htmlspecialchars(round($dix1, 2)) . ' MW</span></div>';
+echo '<div id="gridItem23" class="grid-item">Dix2 Power: <br><span class="value">' . htmlspecialchars(round($dix2, 2)) . ' MW</span></div>';
+echo '<div id="gridItem24" class="grid-item">Dix3 Power: <br><span class="value">' . htmlspecialchars(round($dix3, 2)) . ' MW</span></div>';
+echo '<div id="gridItem16" class="grid-item">Battery Power: <br><span class= "value">' . htmlspecialchars($batteryPow) . ' kW</span></div>';
+echo '<div id="gridItem17" class="grid-item">Battery Power Available: <br><span class= "value">' . htmlspecialchars($batteryPowAva) . ' kW</span></div>';
 
 // Output the NPS data
 echo '<div id="gridItem2" class="grid-item">Wind Speed: <br><span class="value">' . htmlspecialchars(round($wind, 2)) . ' m/s</span></div>';
@@ -206,17 +207,18 @@ echo '<div id="gridItem9" class="grid-item">Battery State of Health: <br> <span 
 echo '<div id="gridItem10" class="grid-item">Battery DC Voltage: <br><span class= "value">' . htmlspecialchars($batterVolt) . ' V</span></div>';
 echo '<div id="gridItem11" class="grid-item">Battery DC Current: <br><span class= "value">' . htmlspecialchars($batteryCurr) . ' A</span></div>';
 echo '<div id="gridItem12" class="grid-item">Battery Average Cell Voltage: <br><span class= "value">' . htmlspecialchars($aveCellVolt) . ' V</span></div>';
-echo '<div id="gridItem13" class="grid-item">Battery Max, Min Cell Voltage: <br>Max: <span class= "value">' . htmlspecialchars($maxCellVolt) . ' V&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Min: ' . htmlspecialchars($minCellVolt) . ' V</span></div>';
-echo '<div id="gridItem14" class="grid-item">Exterior Temperature: <br><span class= "value">' . htmlspecialchars($ambTemp) . '°C</span></div>';
-echo '<div id="gridItem17" class="grid-item">Maximum Module Temperature: <br><span class= "value">' . htmlspecialchars($maxModuleTemp) . '°C</span></div>';
-echo '<div id="gridItem18" class="grid-item">Minimum Module Temperature: <br><span class= "value">' . htmlspecialchars($minModuleTemp) . '°C</span></div>';
+echo '<div id="gridItem13" class="grid-item">Battery Max Cell Voltage: <br><span class= "value">' . htmlspecialchars($maxCellVolt) . ' V</span></div>';
+echo '<div id="gridItem14" class="grid-item">Battery Min Cell Voltage: <br><span class= "value">' . htmlspecialchars($minCellVolt) . ' V</span></div>';
+echo '<div id="gridItem15" class="grid-item">Exterior Temperature: <br><span class= "value">' . htmlspecialchars($ambTemp) . '°C</span></div>';
+echo '<div id="gridItem18" class="grid-item">Maximum Module Temperature: <br><span class= "value">' . htmlspecialchars($maxModuleTemp) . '°C</span></div>';
+echo '<div id="gridItem19" class="grid-item">Minimum Module Temperature: <br><span class= "value">' . htmlspecialchars($minModuleTemp) . '°C</span></div>';
 
 // 7-Day Rolling Capacity Factors
-echo '<div id="gridItem26" class="grid-item">Total Solar 7-Day Capacity Factor: <br><span id="solartotalCF7d" class="value">--%</span></div>';
-echo '<div id="gridItem27" class="grid-item">Fixed Solar 7-Day Capacity Factor: <br><span id="solarfixedCF7d" class="value">--%</span></div>';
-echo '<div id="gridItem28" class="grid-item">Dual-Axis Solar 7-Day Capacity Factor: <br><span id="solardualCF7d" class="value">--%</span></div>';
-echo '<div id="gridItem29" class="grid-item">Hydro 7-Day Capacity Factor: <br><span id="hydroCF7d" class="value">--%</span></div>';
-echo '<div id="gridItem30" class="grid-item">Wind 7-Day Capacity Factor: <br><span id="windCF7d" class="value">--%</span></div>';
+echo '<div id="gridItem27" class="grid-item">Total Solar 7-Day Capacity Factor: <br><span id="solartotalCF7d" class="value">--%</span></div>';
+echo '<div id="gridItem28" class="grid-item">Fixed Solar 7-Day Capacity Factor: <br><span id="solarfixedCF7d" class="value">--%</span></div>';
+echo '<div id="gridItem29" class="grid-item">Dual-Axis Solar 7-Day Capacity Factor: <br><span id="solardualCF7d" class="value">--%</span></div>';
+echo '<div id="gridItem30" class="grid-item">Hydro 7-Day Capacity Factor: <br><span id="hydroCF7d" class="value">--%</span></div>';
+echo '<div id="gridItem31" class="grid-item">Wind 7-Day Capacity Factor: <br><span id="windCF7d" class="value">--%</span></div>';
 
 
 echo '</div>';

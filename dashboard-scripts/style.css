@@ -1,5 +1,15 @@
 /*This file to define containers' and boxes' shapes, fonts, and colors*/
 
+/* make everything same font */
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: "Roboto", Arial, sans-serif;
+}
+
 /*media query for smaller screens*/
 @media (max-width: 360px) {
   .box {
@@ -7,7 +17,6 @@
     max-width: 100%; /* Remove max-width for smaller screens */
   }
 }
-
 
 .container {
   /* Container box behind guages and graph */
@@ -27,6 +36,7 @@
   border: 2px solid #ccc; /* add border to the container */
   border-radius: 12px; /* add rounded corners to the border */
   background: #ededed;
+  margin-bottom: 4px;
 }
 
 .box {
@@ -102,7 +112,6 @@
 
 .date-label {
   /* Style for "Select Data Range" */
-  font-family: "Roboto", Arial, sans-serif; /* Change Font */
   font-weight: 300; /* Change boldness */
   font-size: 14px; /* Change size */
   margin-right: 6px;
@@ -120,28 +129,59 @@
 .dateRangeSelector input[type="date"] {
   margin-right: 15px; /* Add space between the end date input and the update button */
 }
+
+.date-picker {
+  padding: 4px;
+}
+
+.highcharts-reset-zoom {
+  display: none !important; /* hide built in time series reset zoom button */
+}
+
+.reset-zoom {
+  margin-left: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 4px;
+  border: 1px solid;
+  transition: transform 0.1s;
+}
+
+.reset-zoom:active {
+  transform: translateY(1px);
+}
+
 #updateChart {
   margin-left: 10px;
   padding: 5px 10px;
   cursor: pointer;
   white-space: nowrap;
+  border-radius: 4px;
+  border: 1px solid;
+  transition: transform 0.1s;
 }
 
 #updateChart:disabled {
   cursor: default;
 }
 
+#updateChart:active {
+  transform: translateY(1px);
+}
+
 /* Reset button styling */
-.reset-btn {
-  margin-left: 8px;
+.reset-date {
+  margin-left: 10px;
   padding: 5px 10px;
   cursor: pointer;
   white-space: nowrap;
-  border: none;
-  border-radius: 6px;
+  border-radius: 4px;
+  border: 1px solid;
+  transition: transform 0.1s;
 }
 
-.reset-btn:active {
+.reset-date:active {
   transform: translateY(1px);
 }
 
@@ -167,7 +207,6 @@
 .lastUpdatedLabel {
   font-weight: 600;
   margin-right: 6px;
-  font-size: clamp(11px, 1.8vw, 15px); /* size changes with screen size */
   color: #001489;
 }
 
@@ -192,10 +231,8 @@ h1 {
   /* Header title */
   grid-column: 2; /* have title in middle column */
   grid-row: 1; /* keep aligned with last updated container */
-  font-family:
-    "Raleway OTF", "Raleway", Arial, sans-serif; /* Change font family */
   font-weight: 1000; /* Change the boldness */
-  font-size: clamp(16px, 4vw, 32px); /* size changes with screen view width */
+  font-size: clamp(12px, 4vw, 32px); /* size changes with screen view width */
   color: #001489; /* Change text color */
   text-align: center;
   letter-spacing: 0.3px;
@@ -204,7 +241,6 @@ h1 {
 
 h2 {
   /* Style for dial's labels */
-  font-family: "Roboto", Arial, sans-serif; /* Change font family */
   font-weight: 500; /* Change boldness */
   font-size: 20px; /* Change font size */
   color: #007ab8; /* Change text color */
@@ -213,7 +249,6 @@ h2 {
 }
 
 h3 {
-  font-family: "Roboto", Arial, sans-serif; /* Change font family */
   font-size: 16px; /* Change font size */
   color: #ffffff; /* Change text color */
   margin-left: 20px;
@@ -223,7 +258,6 @@ h3 {
 }
 
 h4 {
-  font-family: "Roboto", Arial, sans-serif; /* Change font family */
   font-size: 40px; /* Change font size */
   color: #ffffff; /* Change text color */
   margin-bottom: 10px; /* Space below the heading */
@@ -251,10 +285,10 @@ h4 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   padding: 15px; /* Inner padding for content */
   text-align: center; /* Center-align text */
-  font-family: "Roboto", Arial, sans-serif; /* Set font */
   font-weight: 300; /* Change boldness */
   box-sizing: border-box; /* Include padding in width/height */
   color: #ffffff; /*text color*/
+  min-height: clamp(80px, 10vw, 90px);
 }
 
 .grid-item .value {
