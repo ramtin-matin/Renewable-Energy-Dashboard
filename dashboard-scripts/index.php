@@ -59,6 +59,7 @@
                     <label for="datePicker" class="date-label">Select Date Range:</label>
                     <input type="text" id="datePicker" placeholder="Select date range" readonly>
                     <button id="updateChart">Update Chart</button>
+                    <button id="resetButton" class="reset-btn" type="button">Reset</button>
                 </div>
             </div>
         <div id="timeSeriesContainer"> </div>

@@ -193,6 +193,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Reset button
+const resetBtn = document.getElementById("resetButton");
+if (resetBtn) {
+  resetBtn.addEventListener("click", async () => {
+
+    if (datePicker) datePicker.clear();
+
+    const today = new Date();
+    const todayFormatted = today.toISOString().split("T")[0];
+
+    const oneDayNH = new Date();
+    oneDayNH.setHours(oneDayNH.getHours() - 36);
+
+    startDate = oneDayNH.toISOString().split("T")[0];
+    startTime = oneDayNH.toISOString().split("T")[1];
+    endDate = todayFormatted;
+
+    await fetchData(startDate, endDate, startTime);
+    updateGauges(checkIfTodaySelected(endDate));
+
+    if (typeof fetchRollingCapacityFactors === "function") {
+      fetchRollingCapacityFactors();
+    }
+
+    console.log("Dashboard reset.");
+  });
+}
+
   // Get today's date
   const today = new Date();
   const todayFormatted = today.toISOString().split("T")[0];
