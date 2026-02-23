@@ -108,9 +108,9 @@ function updateGauges(check) {
         `Minimum Module Temperature: <span class="value"><br>${data[0]["Battery Minimum Module Temp (C)"]}°C</span>`;
 
       document.getElementById("gridItem20").innerHTML =
-        `All Solar Power: <span class="value"><br>${data[0]["Solar Generation (kW)"].toFixed(2)} KW</span>`;
+        `All Solar Power: <span class="value"><br>${data[0]["Solar Generation (kW)"].toFixed(2)} kW</span>`;
       document.getElementById("gridItem21").innerHTML =
-        `Hydro Power: <span class="value"><br>${data[0]["Hydro Generation (kW)"].toFixed(2)} KW</span>`;
+        `Hydro Power: <span class="value"><br>${data[0]["Hydro Generation (kW)"].toFixed(2)} kW</span>`;
       document.getElementById("gridItem22").innerHTML =
         `Dix1 Power: <span class="value"><br>${data[0]["Dix 1 Hydro Generation (MW)"].toFixed(2)} MW</span>`;
       document.getElementById("gridItem23").innerHTML =
