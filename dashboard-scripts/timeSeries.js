@@ -257,18 +257,15 @@ document.addEventListener("DOMContentLoaded", () => {
       now.getMinutes() * 60 * 1000 +
       now.getSeconds() * 1000 +
       now.getMilliseconds();
-    const interval = 5 * 60 * 1000;
+    const interval = 60 * 1000; // group by minute
     return interval - (ms % interval);
   }
 
   setTimeout(() => {
     fetchData(startDate, endDate, startTime);
-    setInterval(
-      () => {
-        fetchData(startDate, endDate, startTime);
-      },
-      5 * 60 * 1000,
-    );
+    setInterval(() => {
+      fetchData(startDate, endDate, startTime);
+    }, 60 * 1000);
   }, msUntilNextFiveMinutes());
 });
 
