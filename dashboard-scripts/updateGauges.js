@@ -3,7 +3,7 @@ function updateGauges(check) {
   //Get data from JSON
   fetch("proxy.php?url=https://m.lkeportal.com/publicsolarbatch/ESS.json", {
     mode: "no-cors",
-    method: "POST",
+    method: "GET",
   })
     .then((response) => {
       if (!response.ok) {
@@ -139,5 +139,5 @@ function updateGauges(check) {
     })
     .catch((error) => console.error("Error fetching gauge data:", error));
 }
-// Set up interval to update gauges every 60 seconds
-setInterval(() => updateGauges(checkIfTodaySelected(endDate)), 1000);
+// Set up interval to update gauges every 5 seconds
+setInterval(() => updateGauges(checkIfTodaySelected(endDate)), 5000);
