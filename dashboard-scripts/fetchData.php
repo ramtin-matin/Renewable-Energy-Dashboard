@@ -64,7 +64,8 @@ SELECT
     ROUND(AVG(hydro_percentage), 2)   AS hydro_percentage,
     ROUND(AVG(battery_percentage), 2) AS battery_percentage,
     ROUND(AVG(solar_fixed_percentage), 2) AS solar_fixed_percentage,
-    ROUND(AVG(solar_360_percentage), 2) AS solar_360_percentage
+    ROUND(AVG(solar_360_percentage), 2) AS solar_360_percentage,
+    ROUND(AVG(electricity_demand), 2) AS electricity_demand
 FROM (
     SELECT
         date_time,
@@ -74,6 +75,7 @@ FROM (
         battery_percentage,
         solar_fixed_percentage,
         solar_360_percentage,
+        electricity_demand,
         FROM_UNIXTIME(
             FLOOR(UNIX_TIMESTAMP(date_time) / :interval) * :interval
         ) AS interval_time
@@ -99,6 +101,7 @@ ORDER BY interval_time ASC
         'battery' => [],
         'solarFixed' => [],
         'solar360' => [],
+        'electricityDemand' => [],
         'interval_times' => []
     ];
 
@@ -122,6 +125,7 @@ ORDER BY interval_time ASC
         $data['battery'][] = (float)$row['battery_percentage'];
         $data['solarFixed'][] = (float)$row['solar_fixed_percentage'];
         $data['solar360'][] = (float)$row['solar_360_percentage'];
+        $data['electricityDemand'][] = (float)$row['electricity_demand'];
     }
 
     echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
