@@ -15,11 +15,11 @@ WIND_CAPACITY_MW = 0.09
 # Sampling interval (seconds)
 SAMPLE_INTERVAL_SECONDS = 5.0
 
-logging.basicConfig(
-    filename="/home/ec2-user/logs/capacity_factor.log",
-    level=logging.INFO,
-    format="%(asctime)s:%(levelname)s:%(message)s",
-)
+# logging.basicConfig(
+#     filename="/home/ec2-user/logs/capacity_factor.log",
+#     level=logging.INFO,
+#     format="%(asctime)s:%(levelname)s:%(message)s",
+# )
 
 
 def calculate_rolling_capacity_factors():
