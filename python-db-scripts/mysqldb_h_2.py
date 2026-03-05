@@ -13,7 +13,7 @@ import math
 json_url = "https://m.lkeportal.com/publicsolarbatch/ESS.json"
 
 # logging.basicConfig(
-#     filename="/home/ec2-user/logs/renewable_data_3.log",
+#     filename="/home/ec2-user/logs/capacity_factor.log",
 #     level=logging.INFO,
 #     format="%(asctime)s:%(levelname)s:%(message)s",
 # )
