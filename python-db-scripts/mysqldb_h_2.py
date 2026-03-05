@@ -7,16 +7,17 @@ import pytz
 import signal
 import sys
 from config import servername, username, password, dbname, url, token
+import math
 
 # JSON URL (solar)
 json_url = "https://m.lkeportal.com/publicsolarbatch/ESS.json"
-"""
-logging.basicConfig(
-    filename="/home/ec2-user/logs/renewable_data_3.log",
-    level=logging.INFO,
-    format="%(asctime)s:%(levelname)s:%(message)s",
-)
-"""
+
+# logging.basicConfig(
+#     filename="/home/ec2-user/logs/capacity_factor.log",
+#     level=logging.INFO,
+#     format="%(asctime)s:%(levelname)s:%(message)s",
+# )
+
 def signal_handler(sig, frame):
     logging.info("Script terminated by user")
     if connection:
@@ -59,7 +60,7 @@ def format_value(value):
 def save_to_db(connection, solar, wind, hydro, battery, solar_fixed, solar_360,
                solar_total_generation, hydro_generation,
                solar_fixed_generation, solar_dual_generation,
-               wind_generation):
+               wind_generation, electricity_demand):
 
     try:
         with connection.cursor() as cursor:
@@ -78,9 +79,10 @@ def save_to_db(connection, solar, wind, hydro, battery, solar_fixed, solar_360,
                 hydro_generation,
                 solar_fixed_generation,
                 solar_dual_generation,
-                wind_generation
+                wind_generation,
+                electricity_demand
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
 
             cursor.execute(
@@ -98,6 +100,7 @@ def save_to_db(connection, solar, wind, hydro, battery, solar_fixed, solar_360,
                     solar_fixed_generation,
                     solar_dual_generation,
                     wind_generation,
+                    electricity_demand,
                 ),
             )
 
@@ -134,6 +137,10 @@ def main():
                 solarFixed = format_value(clamp(s.get("Solar Fixed (%)", 0), 0, 100))
                 solar360 = format_value(clamp(s.get("Solar 360 Tracker (%)", 0), 0, 100))
 
+                # (Electricity Demand)^2 = CCL
+                CCL = s.get("CCL", 0)
+                electricity_demand = format_value(clamp((math.sqrt(CCL) / 8549.9) * 100, 0, 100)) # 8549.9 is the maximum electricity demand 
+
                 solar_total_generation = format_value(s.get("Solar Generation (kW)", 0))
                 solar_fixed_generation = format_value(s.get("Solar Fixed (kW)", 0))
                 solar_dual_generation = format_value(s.get("Solar 360 Trackers (kW)", 0))
@@ -141,6 +148,7 @@ def main():
 
                 # wind power (kW)
                 wind_generation = format_value(w.get("power", 0))
+
 
                 save_to_db(
                     connection,
@@ -155,6 +163,7 @@ def main():
                     solar_fixed_generation,
                     solar_dual_generation,
                     wind_generation,
+                    electricity_demand,
                 )
 
             time.sleep(5)

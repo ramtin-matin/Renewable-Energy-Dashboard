@@ -98,16 +98,27 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap; /* boxes wrap onto new line */
   position: absolute;
-  top: 10px;
+  max-width: 95%;
+  margin-top: 10px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   background-color: rgba(237, 237, 237, 0.95);
-  padding: 5px 10px;
+  padding: 6px 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* only for date range selector to fit in screen */
+@media (max-width: 900px) {
+  .dateRangeSelector {
+    width: 95%;
+    gap: 4px;
+    transform: translateX(-50%) scale(0.55);
+    margin-top: 0;
+  }
 }
 
 .date-label {
@@ -199,7 +210,7 @@ textarea {
   grid-column: 1; /* keep on the left */
   grid-row: 1; /* keep aligned with header title */
   justify-self: start;
-  font-size: clamp(9px, 1.8vw, 13px); /* size changes with screen size */
+  font-size: clamp(10px, 1.8vw, 15px); /* size changes with screen size */
   color: #444;
   white-space: nowrap;
 }
@@ -232,7 +243,7 @@ h1 {
   grid-column: 2; /* have title in middle column */
   grid-row: 1; /* keep aligned with last updated container */
   font-weight: 1000; /* Change the boldness */
-  font-size: clamp(12px, 4vw, 32px); /* size changes with screen view width */
+  font-size: clamp(18px, 4vw, 32px); /* size changes with screen view width */
   color: #001489; /* Change text color */
   text-align: center;
   letter-spacing: 0.3px;

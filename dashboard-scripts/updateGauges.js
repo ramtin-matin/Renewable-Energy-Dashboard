@@ -3,7 +3,7 @@ function updateGauges(check) {
   //Get data from JSON
   fetch("proxy.php?url=https://m.lkeportal.com/publicsolarbatch/ESS.json", {
     mode: "no-cors",
-    method: "POST",
+    method: "GET",
   })
     .then((response) => {
       if (!response.ok) {
@@ -32,11 +32,17 @@ function updateGauges(check) {
       // If the value is undefined or invalid, it will default to 0
       const Solar360Gen = clamp(data[0]?.["Solar 360 Tracking (%)"]);
 
-      const GenerationS = Math.max(data[0]["Solar Generation (kW)"], 0); //solar
       const GenerationSNegative = data[0]["Solar Generation (kW)"]; //solar
       const GenerationW = Math.max(data[0]["Wind Generation (kW)"], 0); //wind
       const GenerationH = Math.max(data[0]["Hydro Generation (kW)"], 0); //hydro
       const GenerationB = data[0]["Battery Power (kW)"]; //battery
+
+      // (Electricity Demand)^2 = CCL
+      const CCL = data[0]["CCL"];
+      const electricityDemandData = Math.max(
+        ((Math.sqrt(CCL) / 8549.9) * 100).toFixed(2), // 8549.9 is the maximum electricity demand
+        0,
+      );
 
       // CO2 Reduction Calc
       let batteryPower = null;
@@ -130,6 +136,7 @@ function updateGauges(check) {
         battery: SOC,
         solarFixed: SolarFixedGen,
         solar360: Solar360Gen,
+        electricityDemand: electricityDemandData,
         timestamp: estTimestamp,
       };
       // If today's date is selected, add the new data point to the chart
@@ -139,5 +146,5 @@ function updateGauges(check) {
     })
     .catch((error) => console.error("Error fetching gauge data:", error));
 }
-// Set up interval to update gauges every 60 seconds
-setInterval(() => updateGauges(checkIfTodaySelected(endDate)), 1000);
+// Set up interval to update gauges every 5 seconds
+setInterval(() => updateGauges(checkIfTodaySelected(endDate)), 5000);

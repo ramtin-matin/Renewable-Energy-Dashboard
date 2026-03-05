@@ -16,6 +16,7 @@ let latestRealTimeData = {
   battery: null,
   solarFixed: null, // Added Solar Fixed latest real-time
   solar360: null, // Added Solar Tracking latest real-time
+  electricityDemand: null,
   timestamp: null,
 };
 
@@ -68,6 +69,9 @@ function updateTimeSeriesChart(fetchedData) {
       timestamps[i],
       val,
     ]);
+    const electricityDemandData = fetchedData.electricityDemand.map(
+      (val, i) => [timestamps[i], val],
+    );
 
     chart.series[0].setData(solarData, false);
     chart.series[1].setData(windData, false);
@@ -75,6 +79,7 @@ function updateTimeSeriesChart(fetchedData) {
     chart.series[3].setData(batteryData, false);
     chart.series[4].setData(solarFixedData, false);
     chart.series[5].setData(solar360Data, false);
+    chart.series[6].setData(electricityDemandData, false);
 
     /* chart.xAxis[0].setCategories(fetchedData.interval_times, false);*/
     chart.redraw();
@@ -110,14 +115,23 @@ function addRealTimeDataToChart() {
     (c) => c.renderTo.id === "timeSeriesContainer",
   );
   if (chart) {
-    const { timestamp, solar, wind, hydro, battery, solarFixed, solar360 } =
-      latestRealTimeData;
+    const {
+      timestamp,
+      solar,
+      wind,
+      hydro,
+      battery,
+      solarFixed,
+      solar360,
+      electricityDemand,
+    } = latestRealTimeData;
     chart.series[0].addPoint([timestamp, solar], true, false);
     chart.series[1].addPoint([timestamp, wind], true, false);
     chart.series[2].addPoint([timestamp, hydro], true, false);
     chart.series[3].addPoint([timestamp, battery], true, false);
     chart.series[4].addPoint([timestamp, solarFixed], true, false);
     chart.series[5].addPoint([timestamp, solar360], true, false);
+    chart.series[6].addPoint([timestamp, electricityDemand], true, false);
   }
 }
 
@@ -257,18 +271,15 @@ document.addEventListener("DOMContentLoaded", () => {
       now.getMinutes() * 60 * 1000 +
       now.getSeconds() * 1000 +
       now.getMilliseconds();
-    const interval = 5 * 60 * 1000;
+    const interval = 60 * 1000; // group by minute
     return interval - (ms % interval);
   }
 
   setTimeout(() => {
     fetchData(startDate, endDate, startTime);
-    setInterval(
-      () => {
-        fetchData(startDate, endDate, startTime);
-      },
-      5 * 60 * 1000,
-    );
+    setInterval(() => {
+      fetchData(startDate, endDate, startTime);
+    }, 60 * 1000);
   }, msUntilNextFiveMinutes());
 });
 
@@ -408,6 +419,11 @@ function createTimeSeriesChart() {
         name: "Dual-Axis Solar",
         data: [],
         color: "#d11717",
+      },
+      {
+        name: "Electricity Demand",
+        data: [],
+        color: "#000000",
       },
     ],
   });
