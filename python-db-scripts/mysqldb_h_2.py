@@ -10,13 +10,13 @@ from config import servername, username, password, dbname, url, token
 
 # JSON URL (solar)
 json_url = "https://m.lkeportal.com/publicsolarbatch/ESS.json"
-
+"""
 logging.basicConfig(
     filename="/home/ec2-user/logs/renewable_data_3.log",
     level=logging.INFO,
     format="%(asctime)s:%(levelname)s:%(message)s",
 )
-
+"""
 def signal_handler(sig, frame):
     logging.info("Script terminated by user")
     if connection:

@@ -15,12 +15,13 @@ WIND_CAPACITY_MW = 0.09
 # Sampling interval (seconds)
 SAMPLE_INTERVAL_SECONDS = 5.0
 
+"""
 logging.basicConfig(
-    filename="/home/ec2-user/logs/capacity_factor.log",
+    filename="/home/ec2-user/logs/renewable_data_3.log",
     level=logging.INFO,
     format="%(asctime)s:%(levelname)s:%(message)s",
 )
-
+"""
 
 def calculate_rolling_capacity_factors():
     """Calculate and store 7-day rolling capacity factors."""
