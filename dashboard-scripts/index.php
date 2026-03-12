@@ -132,6 +132,33 @@ $batteryPower = isset($decodedData[0]['Battery Power (kW)']) ? $decodedData[0]['
 $multiAxisSolarGen = max(isset($decodedData[0]['Solar 360 Trackers (kW)']) ? $decodedData[0]['Solar 360 Trackers (kW)'] : 'N/A', 0);
 $fixedSolarGen = max(isset($decodedData[0]['Solar Fixed (kW)']) ? $decodedData[0]['Solar Fixed (kW)'] : 'N/A', 0);
 
+//Electricity Demand
+$electricityDemand = max(isset($decodedData[0]['CCL']) ? sqrt($decodedData[0]['CCL']) : 'N/A', 0);
+
+if ($electricityDemand === 'N/A') {
+    $demandCategory = 'N/A';
+}
+else {
+
+    $demandGW = $electricityDemand / 1000;
+
+    if ($demandGW >= 7) {
+        $demandCategory = 'Extreme High';
+    }
+    elseif ($demandGW >= 5) {
+        $demandCategory = 'High';
+    }
+    elseif ($demandGW >= 3) {
+        $demandCategory = 'Medium';
+    }
+    elseif ($demandGW >= 2.5) {
+        $demandCategory = 'Low';
+    }
+    else {
+        $demandCategory = 'Extreme Low';
+    }
+}
+
 //CO2 Reduction Calc
 $batteryP = null;
 $totalPower = null;
@@ -234,7 +261,8 @@ echo '<div id="gridItem29" class="grid-item" data-type="solar">Dual-Axis Solar 7
 echo '<div id="gridItem30" class="grid-item" data-type="hydro">Hydro 7-Day Capacity Factor: <br><span id="hydroCF7d" class="value">--%</span></div>';
 echo '<div id="gridItem31" class="grid-item" data-type="wind">Wind 7-Day Capacity Factor: <br><span id="windCF7d" class="value">--%</span></div>';
 
-
+//Electricity Demand
+echo '<div id="gridItem32" class="grid-item">Electricity Demand: <br><span class="value">' . $demandCategory . '</span></div>';
 
 echo '</div>';
 ?>
