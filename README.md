@@ -2,6 +2,8 @@
 
 Enhanced an existing renewable-generation dashboard for our CS Capstone Project.
 
+Hosted on http://pplrenewabledashboard.com/
+
 ## Configuration Setup (Required)
 
 This repository does not commit files containing sensitive data (API tokens, database credentials).
