@@ -283,19 +283,24 @@ h4 {
   gap: 15px;
   padding-top: 70px;
 
-  position: relative;   /* important */
+  position: relative; /* important */
 
   background-color: #ededed;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
 }
 
 .grid-item {
   background-color: #007ab8;
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
+  border: 1px solid #ddd; /* Thin border */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 15px; /* Inner padding for content */
+  text-align: center; /* Center-align text */
+  font-weight: 300; /* Change boldness */
+  box-sizing: border-box; /* Include padding in width/height */
+  color: #ffffff; /*text color*/
+  min-height: clamp(80px, 10vw, 90px);
 }
 
 .dashboard-dropdown {
@@ -308,37 +313,13 @@ h4 {
   font-weight: bold;
   color: #ffffff;
   font-size: 18px;
+  margin-top: 4px;
 }
 .value {
   color: #ffffff;
   font-size: 18px;
   font-weight: bold;
 }
-
-/* Style for the 3x3 block */
-/*.grid-4x3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); !* Three equal columns *!
-    grid-template-rows: repeat(4, auto); !* Four rows with auto height *!
-    gap: 10px; !* Add space between the grid items *!
-    width: 100%;
-    max-width: 100%;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-}
-
-.grid-item {
-    background-color: #10344B;
-    color: #F3F5F6; !*text color*!
-    padding: 20px;
-    text-align: center;
-    font-size: 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}*/
 
 /* On screens <= 900px, collapse the column header layout
    into a single-column stack (title on top, timestamp below). */

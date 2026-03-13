@@ -290,7 +290,6 @@ echo '</div>';
     </div>
 </div>
 
-echo '
 <script>
 document.getElementById("energySelect").addEventListener("change", function() {
 
@@ -313,6 +312,5 @@ document.getElementById("energySelect").addEventListener("change", function() {
 
 });
 </script>
-';
 </body>
 </html>
