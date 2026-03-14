@@ -105,18 +105,17 @@ textarea {
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-  background-color: rgba(237, 237, 237, 0.95);
   padding: 6px 10px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 4px;
 }
 
 /* only for date range selector to fit in screen */
-@media (max-width: 900px) {
+@media (max-width: 600px) {
   .dateRangeSelector {
     width: 95%;
     gap: 4px;
-    transform: translateX(-50%) scale(0.55);
+    transform: translateX(-50%) scale(0.75);
     margin-top: 0;
   }
 }
