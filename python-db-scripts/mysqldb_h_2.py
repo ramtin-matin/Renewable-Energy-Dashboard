@@ -57,10 +57,7 @@ def format_value(value):
     return round(value, 2)
 
 
-def save_to_db(connection, solar, wind, hydro, battery, solar_fixed, solar_360,
-               solar_total_generation, hydro_generation,
-               solar_fixed_generation, solar_dual_generation,
-               wind_generation, electricity_demand):
+def save_to_db(connection, solar, wind, hydro, battery, solar_fixed, solar_360, electricity_demand):
 
     try:
         with connection.cursor() as cursor:
@@ -75,14 +72,9 @@ def save_to_db(connection, solar, wind, hydro, battery, solar_fixed, solar_360,
                 battery_percentage,
                 solar_fixed_percentage,
                 solar_360_percentage,
-                solar_total_generation,
-                hydro_generation,
-                solar_fixed_generation,
-                solar_dual_generation,
-                wind_generation,
                 electricity_demand
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             """
 
             cursor.execute(
@@ -95,11 +87,6 @@ def save_to_db(connection, solar, wind, hydro, battery, solar_fixed, solar_360,
                     battery,
                     solar_fixed,
                     solar_360,
-                    solar_total_generation,
-                    hydro_generation,
-                    solar_fixed_generation,
-                    solar_dual_generation,
-                    wind_generation,
                     electricity_demand,
                 ),
             )
@@ -141,15 +128,6 @@ def main():
                 CCL = s.get("CCL", 0)
                 electricity_demand = format_value(clamp((math.sqrt(CCL) / 8549.9) * 100, 0, 100)) # 8549.9 is the maximum electricity demand 
 
-                solar_total_generation = format_value(s.get("Solar Generation (kW)", 0))
-                solar_fixed_generation = format_value(s.get("Solar Fixed (kW)", 0))
-                solar_dual_generation = format_value(s.get("Solar 360 Trackers (kW)", 0))
-                hydro_generation = format_value(s.get("Hydro Generation (kW)", 0))
-
-                # wind power (kW)
-                wind_generation = format_value(w.get("power", 0))
-
-
                 save_to_db(
                     connection,
                     solar,
@@ -158,11 +136,6 @@ def main():
                     battery,
                     solarFixed,
                     solar360,
-                    solar_total_generation,
-                    hydro_generation,
-                    solar_fixed_generation,
-                    solar_dual_generation,
-                    wind_generation,
                     electricity_demand,
                 )
 
