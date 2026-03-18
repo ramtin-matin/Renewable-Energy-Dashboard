@@ -30,7 +30,7 @@ function updateGauges(check) {
       // Safely read the "Solar 360 Tracking (%)" value from the API
       // Optional chaining (?.) prevents errors if the field is missing
       // If the value is undefined or invalid, it will default to 0
-      const Solar360Gen = clamp(data[0]?.["Solar 360 Tracking (%)"]);
+      const Solar360Gen = clamp(data[0]?.["Solar 360 Tracker (%)"]);
 
       const GenerationSNegative = data[0]["Solar Generation (kW)"]; //solar
       const GenerationW = Math.max(data[0]["Wind Generation (kW)"], 0); //wind
