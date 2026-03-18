@@ -209,7 +209,7 @@ textarea {
   grid-column: 1; /* keep on the left */
   grid-row: 1; /* keep aligned with header title */
   justify-self: start;
-  font-size: clamp(10px, 1.8vw, 15px); /* size changes with screen size */
+  font-size: clamp(11px, 1.8vw, 14px); /* size changes with screen size */
   color: #444;
   white-space: nowrap;
 }
@@ -252,7 +252,7 @@ h1 {
 h2 {
   /* Style for dial's labels */
   font-weight: 500; /* Change boldness */
-  font-size: 20px; /* Change font size */
+  font-size: clamp(14px, 1.8vw, 20px); /* size changes with screen view width */
   color: #007ab8; /* Change text color */
   margin: 0;
   margin-top: -15px;
