@@ -1,12 +1,11 @@
 import requests
 import pymysql
 import time
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 import logging
-import pytz
 import signal
 import sys
-from config import servername, username, password, dbname, url, token
+from config import servername, username, password, dbname
 import math
 
 # JSON URL (solar)
@@ -35,17 +34,6 @@ def fetch_solar_data():
         return response.json()
     except requests.exceptions.RequestException as e:
         logging.error(f"Error fetching solar data: {e}")
-        return None
-
-
-def fetch_wind_data():
-    try:
-        headers = {"Authorization": token}
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Error fetching wind data: {e}")
         return None
 
 
@@ -110,11 +98,9 @@ def main():
     try:
         while True:
             solar_data = fetch_solar_data()
-            wind_data = fetch_wind_data()
 
-            if solar_data and wind_data:
+            if solar_data:
                 s = solar_data[0]
-                w = wind_data[0]
 
                 solar = format_value(clamp(s.get("Solar Generation (%)", 0), 0, 100))
                 wind = format_value(clamp(s.get("Wind Generation (%)", 0), 0, 100))
