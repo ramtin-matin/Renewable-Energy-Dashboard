@@ -90,9 +90,7 @@ Run the following SQL commands:
 
        solar_360_percentage FLOAT,
 
-       solar_generation FLOAT,
-
-       hydro_generation FLOAT,
+       electricity_demand FLOAT,
 
        PRIMARY KEY (id, date_time),
 
