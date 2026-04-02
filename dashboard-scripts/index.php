@@ -135,6 +135,7 @@ $fixedSolarGen = max(isset($decodedData[0]['Solar Fixed (kW)']) ? $decodedData[0
 //Electricity Demand
 $electricityDemand = max(isset($decodedData[0]['CCL']) ? sqrt($decodedData[0]['CCL']) : 'N/A', 0);
 
+//Electricity Demand, Demand Category
 if ($electricityDemand === 'N/A') {
     $demandCategory = 'N/A';
 }
@@ -157,6 +158,14 @@ else {
     else {
         $demandCategory = 'Extreme Low';
     }
+}
+
+//Batter Status Change
+if ($batteryPower === 0){
+    $status = 'Offline';
+}
+else {
+    $status = 'Online';
 }
 
 //CO2 Reduction Calc
@@ -263,6 +272,9 @@ echo '<div id="gridItem31" class="grid-item" data-type="wind">Wind 7-Day Capacit
 
 //Electricity Demand
 echo '<div id="gridItem32" class="grid-item">Electricity Demand: <br><span class="value">' . $demandCategory . '</span></div>';
+
+//Battery Status
+echo '<div id="gridItem33" class="grid-item" data-type="battery">Battery Status: <br><span class="value">' . $status . '</span></div>';
 
 echo '</div>';
 ?>
