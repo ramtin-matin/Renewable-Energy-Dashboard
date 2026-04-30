@@ -242,6 +242,12 @@ http://localhost:8000/index.php
 - Wind lifetime capacity factor uses `2024-02-14 13:01:00 UTC` as the turbine online reference time and `90 kW` as the wind capacity.
 - `python-db-scripts/Inser_data_to_database.py` is a one-off CSV import helper and is not required for normal dashboard operation.
 
+## Future Work
+
+- **Evaluate replacing PHP endpoints with FastAPI:** The current PHP endpoints are simple and work, but FastAPI could be a cleaner long-term backend for JSON APIs. It would make request validation, structured responses, async API calls, and shared Python database logic easier to maintain. Since the background jobs are already Python, moving API endpoints to FastAPI could also reduce duplicated logic between PHP and Python.
+- **Improve response times for chart queries:** If historical chart responses become slow, FastAPI could help by adding clearer caching, async external API calls, connection pooling, and more controlled query handling. Database indexing, partition maintenance, and query shape should still be checked first because MySQL query performance will likely be the main bottleneck for large date ranges.
+- **Review the time-series chart library:** Highcharts Stock currently provides the needed charting, zooming, datetime axis, and export behavior. It may still be worth evaluating alternatives with nearly identical functionality and appearance, especially if licensing, bundle size, rendering speed, or customization becomes a concern.
+
 ## Troubleshooting
 
 - If `index.php` fails immediately, check that `dashboard-scripts/config/API/ConfigAPI.php` exists and has a valid wind API URL and token.
