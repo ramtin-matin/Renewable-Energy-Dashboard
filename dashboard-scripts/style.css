@@ -209,7 +209,7 @@ textarea {
   grid-column: 1; /* keep on the left */
   grid-row: 1; /* keep aligned with header title */
   justify-self: start;
-  font-size: clamp(11px, 1.8vw, 14px); /* size changes with screen size */
+  font-size: clamp(12px, 1.8vw, 14px); /* size changes with screen size */
   color: #444;
   white-space: nowrap;
 }
@@ -242,7 +242,7 @@ h1 {
   grid-column: 2; /* have title in middle column */
   grid-row: 1; /* keep aligned with last updated container */
   font-weight: 1000; /* Change the boldness */
-  font-size: clamp(18px, 4vw, 32px); /* size changes with screen view width */
+  font-size: clamp(20px, 4vw, 32px); /* size changes with screen view width */
   color: #001489; /* Change text color */
   text-align: center;
   letter-spacing: 0.3px;
@@ -252,7 +252,7 @@ h1 {
 h2 {
   /* Style for dial's labels */
   font-weight: 500; /* Change boldness */
-  font-size: clamp(14px, 1.8vw, 20px); /* size changes with screen view width */
+  font-size: clamp(16px, 1.8vw, 20px); /* size changes with screen view width */
   color: #007ab8; /* Change text color */
   margin: 0;
   margin-top: -15px;
